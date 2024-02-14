@@ -1,21 +1,22 @@
 package library;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 
 public class User {
 
+    @Getter
     private String name;
+    @Setter
     private int id;
-
-
 
     private ArrayList<Book> books;
 
-    public User(String name, int id) {
+    public User(String name) {
         this.name = name;
-        this.id = id;
     }
-
 
     public void borrowBook(Book book) {
         if (books == null) {
@@ -26,30 +27,23 @@ public class User {
             books.add(book);
             book.setAvailable(false);
 
-            //TODO описать получше
-            System.out.println("Книга добавлена " + book.getTitle());
+            //TODO описать получше DONE
+            System.out.println(name + " borrowed a book '" + book.getTitle() + "' from the library");
 
         } else {
-            System.out.println(book.getTitle() + "Книга недоступна");
+            System.out.println(book.getTitle() + " This book: " + book.getTitle() + " is not available");
         }
     }
 
-    //TODO Чудеса оптимизации от Александры (нужно ли проверять что книга есть?)
+    //TODO Чудеса оптимизации от Александры (нужно ли проверять что книга есть?) DONE
     public void returnBook(Book book) {
-        if (books.contains(book)) {
-            books.remove(book);
+        if (books.remove(book)) {
+//            books.contains(book)
             book.setAvailable(true);
-
-            System.out.println(this.name + " Вернул книгу " + book.getTitle());
+            System.out.println(this.name + " returned book: '" + book.getTitle() + "'");
         }
-
         else {
-            System.out.println(this.name + "Да я не брал эту книгу" + book.getTitle());
+            System.out.println(this.name + " does not have this book: '" + book.getTitle() + "'");
         }
     }
-
-    public String getName() {
-        return name;
-    }
-
 }
