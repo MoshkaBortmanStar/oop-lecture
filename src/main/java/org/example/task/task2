@@ -7,8 +7,12 @@ public abstract class MyAbstractClass {
     }
 
     public static void main(String[] args) {
-        MyAbstractClass myAbstractClass = new MyAbstractClass();
+        MyAbstractClass myAbstractClass = new MyAbstractClass() {
+            @Override
+            public void myAbstractMethod() {
+                System.out.println("This is an abstract method");
+            }
+        };
         myAbstractClass.myConcreteMethod();
     }
-
 }

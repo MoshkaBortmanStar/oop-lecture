@@ -4,5 +4,4 @@ public interface Rollable {
 
     void roll(String direction, int distance);
 
-
 }
