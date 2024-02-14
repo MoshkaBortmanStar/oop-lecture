@@ -1,0 +1,54 @@
+interface Product {
+    void use();
+}
+
+// Шаг 2: Создание конкретных продуктов
+class ConcreteProductA implements Product {
+    @Override
+    public void use() {
+        System.out.println("Using product A");
+    }
+}
+
+class ConcreteProductB implements Product {
+    @Override
+    public void use() {
+        System.out.println("Using product B");
+    }
+}
+
+// Шаг 3: Создание абстрактного создателя
+abstract class Creator {
+    public abstract Product createProduct();
+
+    public void anOperation() {
+        Product product = createProduct();
+        product.use();
+    }
+}
+
+// Шаг 4: Создание конкретных создателей
+class ConcreteCreatorA extends Creator {
+    @Override
+    public Product createProduct() {
+        return new ConcreteProductA();
+    }
+}
+
+class ConcreteCreatorB extends Creator {
+    @Override
+    public Product createProduct() {
+        return new ConcreteProductB();
+    }
+}
+
+// Шаг 5: Использование фабрики
+public class FactoryMethodDemo {
+    public static void main(String[] args) {
+        Creator creatorA = new ConcreteCreatorA();
+        Creator creatorB = new ConcreteCreatorB();
+
+        creatorA.anOperation(); // Использует ConcreteProductA
+        creatorB.anOperation(); // Использует ConcreteProductB
+    }
+}

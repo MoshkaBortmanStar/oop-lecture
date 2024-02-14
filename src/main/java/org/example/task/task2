@@ -1,0 +1,14 @@
+public abstract class MyAbstractClass {
+
+    public abstract void myAbstractMethod();
+
+    public void myConcreteMethod() {
+        System.out.println("This is a concrete method");
+    }
+
+    public static void main(String[] args) {
+        MyAbstractClass myAbstractClass = new MyAbstractClass();
+        myAbstractClass.myConcreteMethod();
+    }
+
+}

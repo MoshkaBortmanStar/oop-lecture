@@ -1,0 +1,22 @@
+
+
+public class A {
+    public void mA() {
+        System.out.println("A's m1");
+    }
+}
+
+
+public class B  {
+    public void mB() {
+        System.out.println("B's m1");
+    }
+}
+
+
+public class C extends A, B {
+    public void mC() {
+        System.out.println(this.mA() + " " + this.mB() + " " + "C's m1";
+    }
+}
+

@@ -1,0 +1,68 @@
+
+public class Brain {
+
+    private int size;
+
+    public Brain() {
+    }
+
+    public Brain(int size) {
+        this.size = size;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+}
+
+
+@Builder
+public class Human {
+
+    private Brain brain;
+    private String name;
+
+    public String toString() {
+        return "Human(name=" + this.name + ")" + " with brain size: " + brain.getSize();
+    }
+
+    public Brain getBrain() {
+        return brain;
+    }
+
+    public void setBrain(Brain brain) {
+        this.brain = brain;
+    }
+
+
+    package org.example;
+
+    import org.example.oop.Brain;
+    import org.example.oop.Human;
+    import org.example.pattern.Pizza;
+
+    public class Main {
+
+
+
+        public static void main(String[] args) {
+            var human1 = Human.builder().name("John").brain(new Brain(100)).build();
+
+
+            var human2 = Human.builder().name("John").build();
+            var brain = human1.getBrain();
+            brain.setSize(1000);
+            human2.setBrain(brain);
+
+
+            System.out.println(human1);
+            System.out.println(human2);
+
+
+        }
+    }
+}
