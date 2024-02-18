@@ -7,7 +7,6 @@ import java.time.LocalDate;
 @Data
 public class Log {
     private Book book;
-    private boolean isReturned;
     private LocalDate borrowDate;
     private LocalDate returnDate;
 
