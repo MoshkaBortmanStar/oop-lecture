@@ -3,6 +3,7 @@ package library;
 import library.data.Book;
 import library.data.Genre;
 import library.service.LibraryService;
+import library.service.cashService.impl.LogbookCash;
 
 public class Main {
 
@@ -22,8 +23,9 @@ public class Main {
 
         User user1 = new User("Misha");
         user1.borrowBook(book1, (Library) library);
+        user1.borrowBook(book2, (Library) library);
         user1.returnBook(book1, (Library) library);
-//        library.showUsersLogbook();
+        LogbookCash.GET_INSTANCE().showLogbook();
     }
 
 }

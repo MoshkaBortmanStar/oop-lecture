@@ -2,11 +2,13 @@ package library;
 
 import library.data.Book;
 import library.service.LibraryService;
+import library.service.cashService.impl.LogbookCash;
 
 import java.util.ArrayList;
 
 public class Library implements LibraryService {
     private ArrayList<Book>  books;
+    LogbookCash logbookCash = LogbookCash.GET_INSTANCE();
 
     public Library() {
         books = new ArrayList<>();

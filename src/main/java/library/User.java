@@ -2,6 +2,7 @@ package library;
 
 import library.data.Book;
 import library.service.UserService;
+import library.service.cashService.impl.LogbookCash;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,6 +17,7 @@ private String name;
     private int id;
 
     private ArrayList<Book> books;
+    private LogbookCash logbookCash = LogbookCash.GET_INSTANCE();
 
     public User(String name) {
         this.name = name;
@@ -30,6 +32,8 @@ private String name;
         if (book.isAvailable() && library.hasBook(book)) {
             books.add(book);
             book.setAvailable(false);
+            logbookCash.registerUser(User.this);
+            logbookCash.addBorrowToLogbook(book, User.this);
             System.out.println(name + " borrowed a book '" + book.getTitle() + "' from the library");
         } else {
             System.out.println(book.getTitle() + " This book: " + book.getTitle() + " is not available");
@@ -39,6 +43,7 @@ private String name;
     public void returnBook(Book book, Library library) {
         if (books.remove(book)) {
             book.setAvailable(true);
+            logbookCash.addReturnToLogbook(book, User.this);
             System.out.println(this.name + " returned book: '" + book.getTitle() + "'");
         }
         else {
