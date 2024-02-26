@@ -1,5 +1,6 @@
-package library;
+package library.data;
 
+import library.data.Book;
 import lombok.Data;
 
 import java.time.LocalDate;

@@ -1,29 +1,24 @@
 package library;
 
-import java.time.LocalDate;
+import library.data.Book;
+import library.service.LibraryService;
+import library.service.cashService.impl.LogbookCash;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public class Library {
-
+public class Library implements LibraryService {
     private ArrayList<Book>  books;
-
-    //TODO сделать мапу DONE
-    private Map<User, List<Log>> usersLogbook;
-    private int USERS_COUNT = 0;
+    LogbookCash logbookCash = LogbookCash.GET_INSTANCE();
 
     public Library() {
         books = new ArrayList<>();
-        usersLogbook = new HashMap<>();
     }
-
+    @Override
     public void addBook(Book book) {
         books.add(book);
         System.out.println("Book '" + book.getTitle() + "' is added to the library");
     }
-
+    @Override
     public void removeBook(Book book) {
         if (books.remove(book)) {
             System.out.println("Book '" + book.getTitle() + "' is removed from the library");
@@ -31,25 +26,7 @@ public class Library {
             System.out.println("Book '" + book.getTitle() + "' is not in the library yet");
         }
     }
-
-    //TODO задавать ему айди и регистрировать это в мапе DONE
-    public void registerUser(User user){
-        if (!usersLogbook.containsKey(user)) {
-            user.setId(++USERS_COUNT);
-            usersLogbook.put(user, new ArrayList<Log>());
-            System.out.println("User: " + user.getName() + " successfully registered in the library");
-        }
-    }
-    //TODO метод по удалению пользака DONE
-    public void removeUser(User user) {
-        if (usersLogbook.containsKey(user)) {
-            usersLogbook.remove(user);
-            System.out.println("User: " + user.getName() + " was removed from the library");
-        } else {
-            System.out.println("User: " + user.getName() + " is not registered in the library");
-        }
-    }
-    //TODO возвращает книгу по названию и выводит сообщение о том, что книга найдена или нет DONE
+    @Override
     public Book findBook(String title) {
         if (books.isEmpty()) {
             System.out.println("There is no books in the library");
@@ -64,7 +41,7 @@ public class Library {
         System.out.println("The book: '" + title + "' is not found!");
         return null;
     }
-
+    @Override
     public boolean hasBook(Book book) {
         for (Book b : books) {
             if (b.equals(book)) {
@@ -73,30 +50,12 @@ public class Library {
         }
         return false;
     }
-
-    public void addBorrowToLogbook(Book book, int userId) {
-        for (User u : usersLogbook.keySet()) {
-            if (u.getId() == userId) {
-                usersLogbook.get(u).add(new Log(book, LocalDate.now()));
-            }
-        }
-    }
-
-    public void addReturnToLogbook(Book book, int userId) {
-        for (User u : usersLogbook.keySet()) {
-            if (u.getId() == userId) {
-                for (Log log : usersLogbook.get(u)) {
-                    if (log.getBook().equals(book)) {
-                        log.setReturnDate(LocalDate.now());
-                    }
-                }
-            }
-        }
-    }
-
-    public void showUsersLogbook() {
-        for (Map.Entry<User, List<Log>> userListEntry : usersLogbook.entrySet()) {
-            System.out.println(userListEntry);
+    @Override
+    public void showBooks() {
+        int counter = 1;
+        for (Book book : books) {
+            System.out.println("Book # " + counter + " '" + book.getTitle() + "'" + " - author: " + book.getAuthor());
+            counter++;
         }
     }
 }
